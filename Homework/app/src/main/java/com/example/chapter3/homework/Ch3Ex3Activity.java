@@ -1,7 +1,13 @@
 package com.example.chapter3.homework;
 
+import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.chapter3.homework.PlaceholderFragment;
 
 /**
  * 使用 ViewPager 和 Fragment 做一个简单版的好友列表界面
@@ -15,13 +21,33 @@ public class Ch3Ex3Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ch3ex3);
+        // DONE: ex3-1. 添加 ViewPager 和 Fragment 做可滑动界面
+        // DONE: ex3-2, 添加 TabLayout 支持 Tab
+        ViewPager pager=findViewById(R.id.view_pager);
+        TabLayout tabLayout=findViewById(R.id.tb);
+        pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int i) {
+                return new PlaceholderFragment();
+            }
 
+            @Override
+            public int getCount() {
+                return 2;
+            }
 
-
-        // TODO: ex3-1. 添加 ViewPager 和 Fragment 做可滑动界面
-
-
-
-        // TODO: ex3-2, 添加 TabLayout 支持 Tab
+            @Override
+            public CharSequence getPageTitle(int position) {
+                String title;
+                if (position==0){
+                    title="好友列表";
+                }
+                else {
+                    title="我的好友";
+                }
+                return title;
+            }
+        });
+        tabLayout.setupWithViewPager(pager);
     }
 }
